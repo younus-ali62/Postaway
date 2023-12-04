@@ -1,3 +1,4 @@
+
 import UserModel from "../../Users/UserModel/user-model.js";
 const userArray=UserModel.getAllUserModel();
 export default class Post {
@@ -47,7 +48,29 @@ export default class Post {
     return postArray.find((post) => post._id == postId);
   }
 
+  //method to like the post
+  static likePostModel(postId){
+    const post=postArray.find(post => post._id== postId);
+    if(post){
+      post._likes++;
+      return ({success:true, message:"Liked the post"})
+    }
+    else {
+        return ({success:false,message:"Post is not exist!"})
+    }
+  }
 
+  //method to comment on the post
+  static commentPostModel(postId,comment){
+    const post=postArray.find(post=>post._id== postId);
+    if(post){
+        post._comments.push(comment);
+        return ({success:true,message:"Comment on post successfull"})
+    }
+    else {
+        return ({success:false,message:"Post is not exist!"})
+    }
+  }
   //method to delete the post
   static deletePost(userId,postId){
     const userExist=UserModel.userExist(userId);

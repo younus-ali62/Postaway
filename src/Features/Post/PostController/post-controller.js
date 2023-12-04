@@ -19,10 +19,31 @@ export default class postController{
         res.status(200).send(result);
       }
 
+      likePost(req,res){
+        const postId=req.params.postId;
+        const result=Post.likePostModel(postId);
+        if(result.success){
+            return res.status(200).send(result);
+        }else {
+            return res.status(404).send(result);
+        }
+      };
+
+      commentPost(req,res){
+        const postId=req.query.postId;
+        const userComment=req.query.comment;
+        const result=Post.commentPostModel(postId,userComment);
+        if(result.success){
+            return res.status(200).send(result);
+        }else {
+            return res.status(404).send(result);
+        }
+
+      }
       deletePost(req,res){
         const userId=req.query.userId;
         const postId=req.query.postId;
-        console.log(req.query);
+
         const result=Post.deletePost(userId,postId);
         if(!result.success){
             return res.status(404).send(result);

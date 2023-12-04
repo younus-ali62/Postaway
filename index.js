@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 //handling routes for user requests
 app.use("/api/users",userRouter);
+
 //handling routes for post requests
 app.use("/api/posts",postRouter);
 

@@ -12,7 +12,7 @@ export default class UserModel{
     static addUser({name,email,password}){
     
         const checkingUser=this.userExistEmail(email);
-        console.log(checkingUser);
+       
         if(checkingUser){
             return ({success:false,message:"User already exist!"});
         }else {
