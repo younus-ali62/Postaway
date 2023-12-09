@@ -1,7 +1,8 @@
 import express from "express";
+import bodyParser from "body-parser";
 import postRouter from "./src/Features/Post/PostRoutes/post-routes.js";
 import userRouter from "./src/Features/Users/UserRoutes/user-routes.js";
-import bodyParser from "body-parser";
+import { jwtAuthorization } from "./src/Middleware/JWT Middleware/jwtAuthorization.js";
 //defining a port
 const port=3000;
 
@@ -11,11 +12,15 @@ const app=express();
 //body parser
 app.use(bodyParser.json());
 
+
+app.use(express.static("Public"));
+
 //handling routes for user requests
 app.use("/api/users",userRouter);
 
 //handling routes for post requests
-app.use("/api/posts",postRouter);
+app.use("/api/posts",jwtAuthorization,postRouter);
+
 
 // handling a defautl request
 app.get("/",(req,res)=>{
