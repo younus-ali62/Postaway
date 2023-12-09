@@ -1,6 +1,6 @@
 
 import LikeModel from "../LikeModel/likeModel.js";
-
+import ApplicationError from "../../../Error-Handler/error_handler.js";
 
 export default class likeController{
     
@@ -12,7 +12,7 @@ export default class likeController{
         if(result.success){
             return res.status(200).send(result);
         }else {
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
     likePostRequest(req,res){
@@ -22,7 +22,7 @@ export default class likeController{
         if(result.success){
             return res.status(200).send(result);
         }else{
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
 
@@ -33,7 +33,7 @@ export default class likeController{
          if(result.success){
             return res.status(200).send(result);
          }else{
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
          }
     }
 }

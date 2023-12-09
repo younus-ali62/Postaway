@@ -1,9 +1,9 @@
 import jsonwebtoken from "jsonwebtoken";
-
+import ApplicationError from "../../Error-Handler/error_handler.js";
 export const jwtAuthorization = (req, res, next) => {
   const jwtToken = req.headers["authorization"];
   if (!jwtToken) {
-    return res.status(401).send("User is Unauthorized");
+    throw new ApplicationError("User is Unathorized",404);
   } else {
     try {
       const payload = jsonwebtoken.verify(
@@ -13,7 +13,8 @@ export const jwtAuthorization = (req, res, next) => {
       // console.log(payload);
       req.userId=payload.userId;
     } catch (err) {
-      return res.status(401).send("User is Unauthorized");
+      throw new ApplicationError("User is Unathorized",404);
+      // return res.status(401).send("User is Unauthorized");
     }
   }
   next();

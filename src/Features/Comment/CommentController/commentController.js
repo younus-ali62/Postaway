@@ -1,5 +1,5 @@
 import CommentModel from "../CommentModel/commentModel.js";
-
+import ApplicationError from "../../../Error-Handler/error_handler.js";
 export default class CommentController{
 
     getComments(req,res){
@@ -9,7 +9,7 @@ export default class CommentController{
         if(result.success){
             return res.status(200).send(result);
         }else{
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
 
@@ -21,7 +21,7 @@ export default class CommentController{
         if(result.success){
             return res.status(201).send(result);
         }else{
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
 
@@ -32,7 +32,7 @@ export default class CommentController{
         if(result.success){
             return res.status(200).send(result);
         }else{
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
     updateComment(req,res){
@@ -43,7 +43,7 @@ export default class CommentController{
         if(result.success){
             return res.status(200).send(result);
         }else {
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
 
@@ -54,7 +54,7 @@ export default class CommentController{
         if(result.success){
             return res.status(200).send(result);
         }else {
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
 }

@@ -1,6 +1,6 @@
 
 import UserModel from "../UserModel/user-model.js";
-
+import ApplicationError from "../../../Error-Handler/error_handler.js";
 export default class UserController{
    
     //method to add user to user model
@@ -9,15 +9,17 @@ export default class UserController{
         if(result.success){
             return res.status(201).send(result);
         }else{
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
         }
     }
 
     //method to handle login request from user
     loginUser(req,res){
         const result=UserModel.loginUserModel(req.body);
+        console.log(result);
         if(!result.success){
-            return res.status(400).send(result);
+            throw new ApplicationError(result.message,400);
+
         }else {
             return res.status(200).send(result);
         }

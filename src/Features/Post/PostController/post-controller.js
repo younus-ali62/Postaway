@@ -1,6 +1,5 @@
 import Post from "../PostModel/postmodel.js";
-import UserModel from "../../Users/UserModel/user-model.js";
-
+import ApplicationError from "../../../Error-Handler/error_handler.js";
 export default class postController {
   addPost(req, res) {
     const userId = req.userId;
@@ -10,7 +9,7 @@ export default class postController {
     if (result.success) {
       return res.status(202).send(result);
     } else {
-      return res.status(404).send(result);
+      throw new ApplicationError(result.message,400);
     }
   }
 
@@ -19,25 +18,6 @@ export default class postController {
     res.status(200).send(result);
   }
 
-  // likePost(req, res) {
-  //   const postId = req.params.postId;
-  //   const result = Post.likePostModel(postId);
-  //   if (result.success) {
-  //     return res.status(200).send(result);
-  //   } else {
-  //     return res.status(404).send(result);
-  //   }
-  // }
-
-  // specificPost(req, res) {
-  //   const postId = req.params.postId;
-  //   const result = Post.specificPostModel(postId);
-  //   if (result.success) {
-  //     return res.status(200).send(result);
-  //   } else {
-  //     return res.status(404).send(result);
-  //   }
-  // }
 
   //method to get all posts of a user from post model
   userPosts(req,res){
@@ -46,7 +26,7 @@ export default class postController {
     if(result.success){
       return res.status(200).send(result);
     }else {
-      return res.status(400).send(result);
+      throw new ApplicationError(result.message,400);
     }
   }
 
@@ -60,26 +40,17 @@ export default class postController {
     if(result.success){
       return res.status(200).send(result);
     }else{
-      return res.status(400).send(result);
+      throw new ApplicationError(result.message,400);
     }
   }
-  // commentPost(req, res) {
-  //   const postId = req.query.postId;
-  //   const userComment = req.query.comment;
-  //   const result = Post.commentPostModel(postId, userComment);
-  //   if (result.success) {
-  //     return res.status(200).send(result);
-  //   } else {
-  //     return res.status(404).send(result);
-  //   }
-  // }
+
 
   deletePost(req, res) {
     const userId = req.userId;
     const postId = req.params.postId;
     const result = Post.deletePost(userId, postId);
     if (!result.success) {
-      return res.status(404).send(result);
+      throw new ApplicationError(result.message,400);
     } else {
       return res.status(200).send(result);
     }
